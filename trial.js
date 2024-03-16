@@ -28,10 +28,13 @@ const trade = async () => {
       }
    }
 
+   // Before buying
+   console.log(`Attempting to buy, current trade count: ${counter}`);
    document.getElementsByClassName('bg-baseBackgroundL1')[3].click();
    await new Promise(resolve => setTimeout(resolve, 100));
    document.getElementsByClassName('bg-greenPrimaryButtonBackground')[0].click()
    await new Promise(resolve => setTimeout(resolve, 1000));
+   console.log(`Buy action executed`);
 
    if (isLastest) {
       console.log('Ready to stop');
@@ -39,6 +42,8 @@ const trade = async () => {
       return;
    }
 
+   // Before selling
+   console.log(`Attempting to sell, current trade count: ${counter}`);
    document.getElementsByClassName('border-b-baseBorderMed')[0].click()
    await new Promise(resolve => setTimeout(resolve, 100));
    document.getElementsByClassName('bg-baseBackgroundL1')[3].click();
@@ -46,7 +51,10 @@ const trade = async () => {
    document.getElementsByClassName('bg-redPrimaryButtonBackground')[0].click()
    await new Promise(resolve => setTimeout(resolve, 1000));
    document.getElementsByClassName('border-b-baseBorderMed')[0].click()
+   console.log(`Sell action executed`);
+   
    counter++;
+   console.log(`Trade count updated: ${counter}`);
 }
 
 timer = setInterval(trade, 8000)
