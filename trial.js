@@ -9,8 +9,16 @@ const stopUsdc = 0;
 // Set the number of transactions including buying or selling
 const stopTradeAmount = 20;
 
+// Define minimum and maximum delay times in milliseconds
+const MIN_DELAY = 1000; // e.g., minimum 1 second
+const MAX_DELAY = 5000; // e.g., maximum 5 seconds
+
 let timer;
 let counter = 1;
+
+// Function to generate a random delay within the defined range
+const getRandomDelay = () => Math.floor(Math.random() * (MAX_DELAY - MIN_DELAY + 1)) + MIN_DELAY;
+
 const trade = async () => {
 
    let isLastest = false;
@@ -36,6 +44,11 @@ const trade = async () => {
    await new Promise(resolve => setTimeout(resolve, 1000));
    console.log(`Buy action executed`);
 
+   // Random delay between buy and sell
+   const delay = getRandomDelay();
+   console.log(`Waiting for ${delay} milliseconds before selling`);
+   await new Promise(resolve => setTimeout(resolve, delay));
+   
    if (isLastest) {
       console.log('Ready to stop');
       clearInterval(timer);
@@ -57,4 +70,4 @@ const trade = async () => {
    console.log(`Trade count updated: ${counter}`);
 }
 
-timer = setInterval(trade, 8000)
+timer = setInterval(trade, MAX_DELAY)
